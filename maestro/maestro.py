@@ -134,13 +134,13 @@ class Conductor:
         first).
         """
         wait = []
-        ordered = []
         for container in pending:
             deps = self._gather_dependencies([container], forward)
             if deps and not deps.issubset(set(ordered + [container])):
                 wait.append(container)
             else:
-                ordered.append(container)
+                if container not in ordered:
+                    ordered.append(container)
 
         # If wait and pending are not empty and have the same length, it means
         # we were not able to order any container from the pending list (they
