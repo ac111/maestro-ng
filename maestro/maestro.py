@@ -167,11 +167,6 @@ class Conductor:
             deps = functools.reduce(lambda x, y: x.union(y),
                                     [s.containers for s in deps], set([]))
             result = result.union(deps)
-
-
-        print("_gather_dependencies returning: {}".format(result))
-
-
         return result
 
     def _to_containers(self, things):
@@ -209,6 +204,10 @@ class Conductor:
             things (list<string>):
             forward (boolean): controls the direction of the dependency tree.
         """
+
+        print("_ordered_containers: {}".format(self._gather_dependencies(self._to_containers(things),
+                                             forward)))
+
         return self._order_dependencies(
             sorted(self._gather_dependencies(self._to_containers(things),
                                              forward)),
@@ -303,15 +302,15 @@ class Conductor:
                 destroying/recreating a new one.
         """
 
-        print("THINGS: {}".format(things))
+        #print("THINGS: {}".format(things))
 
         containers = self._ordered_containers(things) \
             if with_dependencies else self._to_containers(things)
 
 
-        print("CONTAINERS 1: {}\n\n".format(self._ordered_containers(things)))
-        print("with_deps: {}\n\n".format(with_dependencies))
-        print("CONTAINERS 2: {}\n\n".format(self._to_containers(things)))
+        #print("CONTAINERS 1: {}\n\n".format(self._ordered_containers(things)))
+        #print("with_deps: {}\n\n".format(with_dependencies))
+        #print("CONTAINERS 2: {}\n\n".format(self._to_containers(things)))
 
 
         plays.Start(containers, self.registries, refresh_images,
