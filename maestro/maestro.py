@@ -142,6 +142,8 @@ class Conductor:
                 #if container not in ordered:
                 ordered.append(container)
 
+        ordered = [set(ordered)]
+
         print("_order_dependencies ORDERED: {}".format(ordered))
 
         # If wait and pending are not empty and have the same length, it means
