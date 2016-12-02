@@ -150,15 +150,11 @@ class Conductor:
                 'Cannot resolve dependencies for containers {}!'.format(
                     map(lambda x: x.name, wait)))
 
-        ordered = list(set(ordered))
-        wait = list(set(wait))
-        forward = list(set(forward))
-
         # As long as 'wait' has elements, keep recursing to resolve
         # dependencies. Otherwise, returned the ordered list, which should now
         # be final.
         return wait and self._order_dependencies(wait, ordered, forward) \
-            or ordered
+            or list(set(ordered))
 
     def _gather_dependencies(self, containers, forward=True):
         """Transitively gather all containers from the dependencies or
