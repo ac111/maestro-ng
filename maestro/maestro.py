@@ -139,8 +139,10 @@ class Conductor:
             if deps and not deps.issubset(set(ordered + [container])):
                 wait.append(container)
             else:
-                if container not in ordered:
-                    ordered.append(container)
+                #if container not in ordered:
+                ordered.append(container)
+
+        print("_order_dependencies ORDERED: {}".format(ordered))
 
         # If wait and pending are not empty and have the same length, it means
         # we were not able to order any container from the pending list (they
