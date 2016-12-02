@@ -142,7 +142,7 @@ class Conductor:
                 #if container not in ordered:
                 ordered.append(container)
 
-        ordered = [set(ordered)]
+        ordered = list(set(ordered))
 
         print("_order_dependencies ORDERED: {}".format(ordered))
 
