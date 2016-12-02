@@ -297,12 +297,15 @@ class Conductor:
             reuse (boolean): Restart the existing container instead of
                 destroying/recreating a new one.
         """
+
+        print("THINGS: {}".format(things))
+
         containers = self._ordered_containers(things) \
             if with_dependencies else self._to_containers(things)
 
 
         print("CONTAINERS: {}".format(containers))
-   
+
 
         plays.Start(containers, self.registries, refresh_images,
                     ignore_dependencies, concurrency, reuse,
