@@ -141,8 +141,6 @@ class Conductor:
             else:
                 ordered.append(container)
 
-        ordered = list(set(ordered))
-
         # If wait and pending are not empty and have the same length, it means
         # we were not able to order any container from the pending list (they
         # all went to the wait list). This means the dependency tree cannot be
@@ -151,6 +149,10 @@ class Conductor:
             raise exceptions.DependencyException(
                 'Cannot resolve dependencies for containers {}!'.format(
                     map(lambda x: x.name, wait)))
+
+        ordered = list(set(ordered))
+        wait = list(set(wait))
+        forward = list(set(forward))
 
         # As long as 'wait' has elements, keep recursing to resolve
         # dependencies. Otherwise, returned the ordered list, which should now
