@@ -208,6 +208,11 @@ class Conductor:
         print("_ordered_containers: {}".format(self._gather_dependencies(self._to_containers(things),
                                              forward)))
 
+        print("_order_dependencies: {}".format(self._order_dependencies(
+            sorted(self._gather_dependencies(self._to_containers(things),
+                                             forward)),
+            forward=forward)))
+
         return self._order_dependencies(
             sorted(self._gather_dependencies(self._to_containers(things),
                                              forward)),
