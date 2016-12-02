@@ -134,6 +134,7 @@ class Conductor:
         first).
         """
         wait = []
+        ordered = []
         for container in pending:
             deps = self._gather_dependencies([container], forward)
             if deps and not deps.issubset(set(ordered + [container])):
@@ -161,6 +162,7 @@ class Conductor:
         dependents (depending on the value of the forward parameter) services
         that the services the given containers are members of."""
         result = set(containers or self.containers.values())
+
         for container in result:
             deps = container.service.requires if forward \
                 else container.service.needed_for
@@ -205,13 +207,13 @@ class Conductor:
             forward (boolean): controls the direction of the dependency tree.
         """
 
-        print("_ordered_containers: {}".format(self._gather_dependencies(self._to_containers(things),
-                                             forward)))
+        #print("_ordered_containers: {}".format(self._gather_dependencies(self._to_containers(things),
+        #                                     forward)))
 
-        print("_order_dependencies: {}".format(self._order_dependencies(
-            sorted(self._gather_dependencies(self._to_containers(things),
-                                             forward)),
-            forward=forward)))
+        #print("_order_dependencies: {}".format(self._order_dependencies(
+        #    sorted(self._gather_dependencies(self._to_containers(things),
+        #                                     forward)),
+        #    forward=forward)))
 
         return self._order_dependencies(
             sorted(self._gather_dependencies(self._to_containers(things),
