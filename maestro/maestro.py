@@ -304,7 +304,9 @@ class Conductor:
             if with_dependencies else self._to_containers(things)
 
 
-        print("CONTAINERS: {}".format(containers))
+        print("CONTAINERS 1: {}\n\n".format(self._ordered_containers(things)))
+        print("with_deps: {}\n\n".format(with_dependencies))
+        print("CONTAINERS 2: {}\n\n".format(self._to_containers(things)))
 
 
         plays.Start(containers, self.registries, refresh_images,
