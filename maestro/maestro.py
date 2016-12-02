@@ -139,12 +139,9 @@ class Conductor:
             if deps and not deps.issubset(set(ordered + [container])):
                 wait.append(container)
             else:
-                #if container not in ordered:
                 ordered.append(container)
 
         ordered = list(set(ordered))
-
-        print("_order_dependencies ORDERED: {}".format(ordered))
 
         # If wait and pending are not empty and have the same length, it means
         # we were not able to order any container from the pending list (they
@@ -210,15 +207,6 @@ class Conductor:
             things (list<string>):
             forward (boolean): controls the direction of the dependency tree.
         """
-
-        #print("_ordered_containers: {}".format(self._gather_dependencies(self._to_containers(things),
-        #                                     forward)))
-
-        #print("_order_dependencies: {}".format(self._order_dependencies(
-        #    sorted(self._gather_dependencies(self._to_containers(things),
-        #                                     forward)),
-        #    forward=forward)))
-
         return self._order_dependencies(
             sorted(self._gather_dependencies(self._to_containers(things),
                                              forward)),
@@ -313,16 +301,8 @@ class Conductor:
                 destroying/recreating a new one.
         """
 
-        #print("THINGS: {}".format(things))
-
         containers = self._ordered_containers(things) \
             if with_dependencies else self._to_containers(things)
-
-
-        #print("CONTAINERS 1: {}\n\n".format(self._ordered_containers(things)))
-        #print("with_deps: {}\n\n".format(with_dependencies))
-        #print("CONTAINERS 2: {}\n\n".format(self._to_containers(things)))
-
 
         plays.Start(containers, self.registries, refresh_images,
                     ignore_dependencies, concurrency, reuse,
