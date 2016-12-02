@@ -167,6 +167,11 @@ class Conductor:
             deps = functools.reduce(lambda x, y: x.union(y),
                                     [s.containers for s in deps], set([]))
             result = result.union(deps)
+
+
+        print("_gather_dependencies returning: {}".format(result))
+
+
         return result
 
     def _to_containers(self, things):
