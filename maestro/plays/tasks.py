@@ -195,15 +195,21 @@ class StartTask(Task):
 
             print('IMAGE DETAILS: {}'.format(image))
 
-            print()
-
             print('BACKEND IMAGES: {}'.format(self.container.ship.backend.images(image['repository'])))
 
+            #BACKEND IMAGES: [{u'Created': 1483744741, u'Labels': {}, u'VirtualSize': 1110060, u'ParentId': u'', u'RepoTags': None, u'RepoDigests': [u'ship.cenx.com:5000/busybox@sha256:ae007bdb45fc0d56e3d705b97640ac24844bcc9ce4c8b8493f216a57ab6af0d5'], u'Id': u'sha256:8a4698b1752b8142df16b73eca10c8b03fbd2ccbbd03cfd47882f04ace12de66', u'Size': 1110060}, {u'Created': 1458325368, u'Labels': {}, u'VirtualSize': 1112820, u'ParentId': u'', u'RepoTags': [u'ship.cenx.com:5000/busybox:latest'], u'RepoDigests': [u'ship.cenx.com:5000/busybox@sha256:72df87de1d513d6e3d8bc8164cce5d2b77c535f7e280b7411f911ebe032949c7'], u'Id': u'sha256:47bcc53f74dc94b1920f0b34f6036096526296767650f223433fe65c35f149eb', u'Size': 1112820}]
 
-            if self._refresh or \
-                not filter(
-                    lambda i: self.container.image in i['RepoTags'],
-                    self.container.ship.backend.images(image['repository'])):
+            pull_image = True
+            for image_repo in self.container.ship.backend.images(image['repository']):
+                if self.container.image in image_repo['RepoTags']:
+                    pull_image = False
+
+            if self._refresh or pull_image:
+
+                #not filter(
+                #    lambda i: self.container.image in i['RepoTags'],
+                #    self.container.ship.backend.images(image['repository'])):
+
                 PullTask(self.o, self.container, self._registries,
                          standalone=False).run()
 
