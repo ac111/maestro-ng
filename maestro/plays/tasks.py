@@ -194,7 +194,11 @@ class StartTask(Task):
 
 
             print('IMAGE DETAILS: {}'.format(image))
-            
+
+            print()
+
+            print('BACKEND IMAGES: {}'.format(self.container.ship.backend.images(image['repository'])))
+
 
             if self._refresh or \
                 not filter(
