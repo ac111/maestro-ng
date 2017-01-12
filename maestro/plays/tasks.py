@@ -368,8 +368,8 @@ class LoginTask(Task):
     def _run(self):
         registry = LoginTask.registry_for_container(self.container,
                                                     self._registries)
-        #if not registry or not registry['username']:
-        #    return
+        if not registry or not registry['username']:
+            return
 
         self.o.reset()
         self.o.pending('logging in to {}...'.format(registry['registry']))
