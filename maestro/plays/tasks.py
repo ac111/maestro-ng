@@ -191,6 +191,11 @@ class StartTask(Task):
 
             # Check if the image is available, or if we need to pull it down.
             image = self.container.get_image_details()
+
+
+            print('IMAGE DETAILS: {}'.format(image))
+            
+
             if self._refresh or \
                 not filter(
                     lambda i: self.container.image in i['RepoTags'],
