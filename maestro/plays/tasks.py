@@ -201,8 +201,9 @@ class StartTask(Task):
 
             pull_image = True
             for image_repo in self.container.ship.backend.images(image['repository']):
-                if self.container.image in image_repo['RepoTags']:
-                    pull_image = False
+                for image_repo_instance in image_repo:
+                    if self.container.image in image_repo_instance['RepoTags']:
+                        pull_image = False
 
             if self._refresh or pull_image:
 
