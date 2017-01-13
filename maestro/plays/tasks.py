@@ -379,7 +379,7 @@ class LoginTask(Task):
         if not registry:
             return
 
-        if 'username' in registry or not registry['username']:
+        if 'username' in registry and not registry['username']:
             dockercfg_path = os.path.expanduser(os.path.join('~/.docker', 'config.json'))
             if dockercfg_path and os.path.exists(dockercfg_path):
                 auth_configs = auth.load_config(dockercfg_path)
