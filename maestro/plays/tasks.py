@@ -386,6 +386,9 @@ class LoginTask(Task):
                 authcfg = auth.resolve_authconfig(auth_configs, registry['registry'])
                 username = authcfg.get('username', None)
                 if username:
+
+                    print("SETTING USERNAME TO: {}".format(username))
+
                     registry['username'] = username
                 else:
                     raise Exception("Missing login credentials for registry {}".format(registry['registry']))
