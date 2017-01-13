@@ -376,10 +376,10 @@ class LoginTask(Task):
     def _run(self):
         registry = LoginTask.registry_for_container(self.container,
                                                     self._registries)
-        if not registry or not registry['username']:
+        if not registry:
             return
 
-        if not registry['username']:
+        if 'username' in registry or not registry['username']:
             dockercfg_path = os.path.expanduser(os.path.join('~/.docker', 'config.json'))
             if dockercfg_path and os.path.exists(dockercfg_path):
                 auth_configs = auth.load_config(dockercfg_path)
