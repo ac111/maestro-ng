@@ -384,7 +384,11 @@ class LoginTask(Task):
             if dockercfg_path and os.path.exists(dockercfg_path):
                 auth_configs = auth.load_config(dockercfg_path)
                 authcfg = auth.resolve_authconfig(auth_configs, registry['registry'])
-                registry['username'] = authcfg.get('username', None)
+                username = authcfg.get('username', None)
+                if username:
+                    registry['username'] = username
+                else
+                    raise Exception("Missing login credentials for registry {}".format(registry['registry']))
 
         self.o.reset()
         self.o.pending('logging in to {}...'.format(registry['registry']))
