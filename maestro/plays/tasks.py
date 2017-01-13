@@ -387,7 +387,7 @@ class LoginTask(Task):
                 username = authcfg.get('username', None)
                 if username:
                     registry['username'] = username
-                else
+                else:
                     raise Exception("Missing login credentials for registry {}".format(registry['registry']))
 
         self.o.reset()
