@@ -397,8 +397,8 @@ class LoginTask(Task):
         except Exception as e:
             raise exceptions.ContainerOrchestrationException(
                 self.container,
-                'Login to {} as {} failed: {}'
-                .format(registry['registry'], registry['username'], e))
+                'Login to {} failed: {}'
+                .format(registry['registry'], e))
 
     @staticmethod
     def registry_for_container(container, registries={}):
